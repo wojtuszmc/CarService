@@ -1,13 +1,11 @@
 package org.example.model;
 
-public class Car {
+public class Car extends Vehicle {
     private String model;
     private String licensePlate;
     private String coordinates;
     public Car(String model, String licensePlate, String coordinates) {
-        this.model = model;
-        this.licensePlate = licensePlate;
-        this.coordinates = coordinates;
+        super(model, licensePlate, coordinates);
     }
 
 

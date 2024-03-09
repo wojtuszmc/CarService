@@ -5,6 +5,7 @@ import org.example.model.Reservation;
 import org.example.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReservationController {
     private CarController carController;
@@ -22,9 +23,9 @@ public class ReservationController {
     public void addReservation(User user, int dayOfWeek, Car car) {
         reservationDataBase.add(new Reservation(user, dayOfWeek, car));
     }
-    public ArrayList<Reservation> getReservationByUser(int choiceOfUser) {
+    public List<Reservation> getReservationByUser(int choiceOfUser) {
         User user = userController.getUserDataBase().get(choiceOfUser);
-        ArrayList<Reservation> result = new ArrayList<>();
+        List<Reservation> result = new ArrayList<>();
         for (Reservation reservation: reservationDataBase) {
             if (user.getEmail().equals(reservation.getUser().getEmail())) {
                 result.add(reservation);
@@ -34,7 +35,7 @@ public class ReservationController {
     }
 
     public void removeReservationByUser(int choiceOfUser, int choiceToRemove) {
-        ArrayList<Reservation> reservationByUser = getReservationByUser(choiceOfUser);
+        List<Reservation> reservationByUser = getReservationByUser(choiceOfUser);
         System.out.println(reservationByUser.size());
         int indexToRemove = getReservationDataBase().indexOf(reservationByUser.get(choiceToRemove));
         getReservationDataBase().remove(indexToRemove);
