@@ -10,6 +10,7 @@ public class Car {
         this.coordinates = coordinates;
     }
 
+
     public Car() {
     }
 
