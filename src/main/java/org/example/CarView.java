@@ -1,15 +1,22 @@
 package org.example;
 
+import java.util.List;
 import java.util.Scanner;
 
 
 public class CarView {
 
-    private CarController carController = new CarController();
-    private UserController userController = new UserController();
-    private ReservationController reservationController = new ReservationController();
+    private CarController carController;
+    private UserController userController;
+    private ReservationController reservationController;
     private Scanner scanner = new Scanner(System.in);
     private int choiceOfUser;
+
+    public CarView () {
+        carController = new CarController();
+        userController = new UserController();
+        reservationController = new ReservationController(carController, userController);
+    }
 
     public void run() {
         System.out.println("Dodaj użytkownika.");
@@ -81,13 +88,13 @@ public class CarView {
         displayUsers();
         choiceOfUser = Integer.valueOf(scanner.nextLine()) - 1;
         System.out.println(userController.getUserDataBase().get(choiceOfUser));
-        for (int i = 0;
-             i < reservationController.getReservationByUser(userController.getUserDataBase().get(choiceOfUser)).size(); i++) {
-            System.out.println((i + 1) + ". " +
-                    reservationController.getReservationByUser(userController.getUserDataBase().get(choiceOfUser)).get(i));
+        List<Reservation> reservationList = reservationController.getReservationByUser(choiceOfUser);
+        for (int i = 0; i < reservationList.size(); i++) {
+            System.out.println((i + 1) + ". " + reservationList.get(i));
         }
         System.out.println();
     }
+
     private void addNewUser() {
         System.out.print("Podaj imię: ");
         String name = scanner.nextLine();
@@ -168,6 +175,6 @@ public class CarView {
     private void removeReservation() {
         System.out.println("Wybierz rezerwację do usunięcia.");
         int choiceToRemove = Integer.valueOf(scanner.nextLine()) - 1;
-        reservationController.removeReservationByUser(choiceOfUser, choiceToRemove, userController);
+        reservationController.removeReservationByUser(choiceOfUser, choiceToRemove);
     }
 }

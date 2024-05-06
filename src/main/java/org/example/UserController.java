@@ -3,7 +3,6 @@ package org.example;
 import java.util.ArrayList;
 
 public class UserController {
-    private User user = new User();
     private ArrayList<User> userDataBase = new ArrayList<>();
     public ArrayList<User> getUserDataBase() {
         return userDataBase;
