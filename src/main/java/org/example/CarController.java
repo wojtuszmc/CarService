@@ -12,6 +12,8 @@ public class CarController {
         return carDatabase;
     }
 
+
+
     public void addCar(String carName, String plate, String coord) {
         carDatabase.add(new Car(carName, plate, coord));
     }
