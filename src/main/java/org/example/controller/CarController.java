@@ -1,8 +1,9 @@
-package org.example;
+package org.example.controller;
+
+import org.example.model.Car;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class CarController {
 

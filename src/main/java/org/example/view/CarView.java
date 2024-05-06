@@ -1,4 +1,11 @@
-package org.example;
+package org.example.view;
+
+import org.example.controller.CarController;
+import org.example.controller.ReservationController;
+import org.example.controller.UserController;
+import org.example.model.Car;
+import org.example.model.Reservation;
+import org.example.model.User;
 
 import java.util.List;
 import java.util.Scanner;

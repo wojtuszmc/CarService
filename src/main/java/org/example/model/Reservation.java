@@ -1,4 +1,7 @@
-package org.example;
+package org.example.model;
+
+import org.example.model.Car;
+import org.example.model.User;
 
 public class Reservation {
     private User user;

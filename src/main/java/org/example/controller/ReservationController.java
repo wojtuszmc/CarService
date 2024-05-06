@@ -1,4 +1,8 @@
-package org.example;
+package org.example.controller;
+
+import org.example.model.Car;
+import org.example.model.Reservation;
+import org.example.model.User;
 
 import java.util.ArrayList;
 
