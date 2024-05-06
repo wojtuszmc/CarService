@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -10,6 +9,7 @@ public class CarView {
     private UserController userController = new UserController();
     private ReservationController reservationController = new ReservationController();
     private Scanner scanner = new Scanner(System.in);
+    private int choiceOfUser;
 
     public void run() {
         System.out.println("Dodaj użytkownika.");
@@ -19,35 +19,47 @@ public class CarView {
         printPanel();
         String choice = scanner.nextLine();
         while (true) {
-            //Zamień na switcha
-            if (choice.equals("6")) {
-                break;
-            } else if (choice.equals("1")) {
-                addNewCar();
-                printPanel();
-                choice = scanner.nextLine();
-            } else if (choice.equals("2")) {
-                displayAll();
-                editCar();
-                printPanel();
-                choice = scanner.nextLine();
-            } else if (choice.equals("3")) {
-                addNewReservation();
-                displayReservations();
-                printPanel();
-                choice = scanner.nextLine();
-            } else if (choice.equals("4")) {
-                addNewUser();
-                printPanel();
-                choice = scanner.nextLine();
-            } else if (choice.equals("5")) {
-                displayReservationForUser();
-                printPanel();
-                choice = scanner.nextLine();
+            switch (choice) {
+                case "7":
+                    return;
+                case "1":
+                    addNewCar();
+                    break;
+                case "2":
+                    displayAll();
+                    editCar();
+                    break;
+                case "3":
+                    addNewReservation();
+                    displayReservations();
+                    break;
+                case "4":
+                    addNewUser();
+                    break;
+                case "5":
+                    displayReservationForUser();
+                    break;
+                case "6":
+                    displayReservationForUser();
+                    removeReservation();
+                    break;
+                default:
+                    System.out.println("Nieprawidłowy wybór, spróbuj ponownie.");
+                    break;
             }
+            printPanel();
+            choice = scanner.nextLine();
         }
     }
-
+    private void printPanel() {
+        System.out.println("1. Dodaj nowy samochód.");
+        System.out.println("2. Edytuj dodane samochody.");
+        System.out.println("3. Zarezerwuj.");
+        System.out.println("4. Dodaj nowego użytkownika.");
+        System.out.println("5. Wyświetl rezerwację danego użytkownika.");
+        System.out.println("6. Usuń rezerwację.");
+        System.out.println("7. Zakończ");
+    }
     private void displayAll() {
         for (int i = 0; i < carController.getCarDatabase().size(); i++) {
             System.out.println((i + 1) + ". " + carController.getCarDatabase().get(i).getModel());
@@ -67,9 +79,13 @@ public class CarView {
     private void displayReservationForUser() {
         System.out.println("Wybierz użytkownika.");
         displayUsers();
-        int choiceOfUser = Integer.valueOf(scanner.nextLine()) - 1;
+        choiceOfUser = Integer.valueOf(scanner.nextLine()) - 1;
         System.out.println(userController.getUserDataBase().get(choiceOfUser));
-        System.out.println(reservationController.getReservationByUser(userController.getUserDataBase().get(choiceOfUser)));
+        for (int i = 0;
+             i < reservationController.getReservationByUser(userController.getUserDataBase().get(choiceOfUser)).size(); i++) {
+            System.out.println((i + 1) + ". " +
+                    reservationController.getReservationByUser(userController.getUserDataBase().get(choiceOfUser)).get(i));
+        }
         System.out.println();
     }
     private void addNewUser() {
@@ -90,16 +106,6 @@ public class CarView {
         String coord = scanner.nextLine();
         carController.addCar(carName, plate, coord);
     }
-
-    private void printPanel() {
-        System.out.println("1. Dodaj nowy samochód.");
-        System.out.println("2. Edytuj dodane samochody.");
-        System.out.println("3. Zarezerwuj.");
-        System.out.println("4. Dodaj nowego użytkownika.");
-        System.out.println("5. Wyświetl rezerwację danego użytkownika.");
-        System.out.println("6. Zakończ");
-    }
-
     private void editCar() {
 
         System.out.println("Wpisz numer rejestracyjny, żeby znaleźć samochód" +
@@ -158,5 +164,10 @@ public class CarView {
             return;
         }
         reservationController.addReservation(user, numberOfWeek, findCar);
+    }
+    private void removeReservation() {
+        System.out.println("Wybierz rezerwację do usunięcia.");
+        int choiceToRemove = Integer.valueOf(scanner.nextLine()) - 1;
+        reservationController.removeReservationByUser(choiceOfUser, choiceToRemove, userController);
     }
 }

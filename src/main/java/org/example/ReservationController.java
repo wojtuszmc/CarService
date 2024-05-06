@@ -21,4 +21,10 @@ public class ReservationController {
         }
         return result;
     }
+    public void removeReservationByUser(int choiceOfUser, int choiceToRemove, UserController userCon) {
+        ArrayList<Reservation> reservationByUser = getReservationByUser(userCon.getUserDataBase().get(choiceOfUser));
+        System.out.println(reservationByUser.size());
+        int indexToRemove = getReservationDataBase().indexOf(reservationByUser.get(choiceToRemove));
+        getReservationDataBase().remove(indexToRemove);
+    }
 }
